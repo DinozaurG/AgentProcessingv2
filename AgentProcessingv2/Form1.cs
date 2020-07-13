@@ -25,7 +25,6 @@ namespace AgentProcessingv2
         private void buttonStart_Click(object sender, EventArgs e)
         {
             queue = 0;
-            T = 0;
             N = 0;
             cD = (double)numericUpDown1.Value;
             aD = (double)numericUpDown2.Value;
@@ -59,27 +58,22 @@ namespace AgentProcessingv2
         private void timer1_Tick(object sender, EventArgs e)
         {
             nextCustomerTime += (int)(cD * Math.Exp(-cD * rnd.NextDouble()));
-            foreach (Agent agent in agents)
+            for(int i = 0; i < aV; i++)
             {
-                if (!agent.isBusy)
+                if (!agents[i].isBusy)
                 {
-                    agent.isBusy = true;
-                    agent.workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
+                    agents[i].isBusy = true;
+                    agents[i].workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
                 }
             }
             queue++;
-            double[] workTimesOfAgents = new double[aV];
-            for (int i = 0; i < aV; i++)
-            {
-                workTimesOfAgents[i] = agents[i].workTime;
-            }
             double minT = double.MaxValue;
             int ind = -1;
             for (int i = 0; i < aV; i++)
             {
-                if (workTimesOfAgents[i] < minT)
+                if (agents[i].workTime < minT)
                 {
-                    minT = workTimesOfAgents[i];
+                    minT = agents[i].workTime;
                     ind = i;
                 }
             }
@@ -94,13 +88,12 @@ namespace AgentProcessingv2
                     queue--;
                 }
             }
-            T += minT;
-            foreach (Agent agent in agents)
+            for (int i = 0; i < aV; i++)
             {
-                agent.workTime -= minT;
-                if (agent.workTime == 0)
+                agents[i].workTime -= minT;
+                if (agents[i].workTime <= 0)
                 {
-                    agent.isBusy = false;
+                    agents[i].isBusy = false;
                 }
             }
             listBox1.Items.Clear();
@@ -116,8 +109,8 @@ namespace AgentProcessingv2
                 }
             }
             double[] probs = new double[aV + 1];
-            var c = agents.Where(agent => agent.isBusy == true).Count();
-            frec[c]++;
+            var a = agents.Where(agent => agent.isBusy == true).Count();
+            frec[a]++;
             N++;
             for (int i = 0; i <= aV; i++)
             {

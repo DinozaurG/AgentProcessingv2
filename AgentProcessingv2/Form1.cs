@@ -41,8 +41,8 @@ namespace AgentProcessingv2
             {
                 probs[0] += Math.Pow(ro, k) / fact(k);
             }
-            probs[0] += Math.Pow(ro, aV + 1) / fact(aV) / (aV - ro);
-            probs[0] = Math.Pow(probs[0], -1);
+            probs[0] += Math.Pow(ro, aV + 1) / (fact(aV) * (aV - ro));
+            probs[0] = 1 / probs[0];
             for (int k = 0; k <= aV; k++)
             {
                 probs[k] = Math.Pow(ro, k) / fact(k) * probs[0];
@@ -101,11 +101,11 @@ namespace AgentProcessingv2
             {
                 if (agents[i].isBusy)
                 {
-                    listBox1.Items.Add(i + " " + ("Busy") + " Time left: " + agents[i].workTime);
+                    listBox1.Items.Add((i + 1) + " " + ("Busy") + " Time left: " + agents[i].workTime);
                 }
                 else
                 {
-                    listBox1.Items.Add(i + " " + ("Free") + " Time left: " + agents[i].workTime);
+                    listBox1.Items.Add((i + 1) + " " + ("Free") + " Time left: " + agents[i].workTime);
                 }
             }
             double[] probs = new double[aV + 1];

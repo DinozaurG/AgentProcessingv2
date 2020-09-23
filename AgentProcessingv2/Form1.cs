@@ -13,8 +13,8 @@ namespace AgentProcessingv2
     public partial class Form1 : Form
     {
         Random rnd = new Random();
-        double cD, aD, T;
-        double[] frec;
+        double cD, aD;
+        double[] freq;
         int aV, nextCustomerTime, queue, N;
         Agent[] agents;
         public Form1()
@@ -34,7 +34,7 @@ namespace AgentProcessingv2
             {
                 agents[i] = new Agent();
             }
-            frec = new double[aV + 1];
+            freq = new double[aV + 1];
             double ro = cD / aD;
             double[] probs = new double[aV + 1];
             for (int k = 0; k <= aV; k++)
@@ -60,9 +60,9 @@ namespace AgentProcessingv2
             nextCustomerTime += (int)(cD * Math.Exp(-cD * rnd.NextDouble()));
             for(int i = 0; i < aV; i++)
             {
-                if (!agents[i].isBusy)
+                if (!agents[i].busy)
                 {
-                    agents[i].isBusy = true;
+                    agents[i].busy = true;
                     agents[i].workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
                 }
             }
@@ -83,8 +83,11 @@ namespace AgentProcessingv2
             }
             else
             {
-                if (agents[ind].onWork(queue, aD, rnd))
+                agents[ind].busy = false;
+                if (queue > 0)
                 {
+                    agents[ind].busy = true;
+                    agents[ind].workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
                     queue--;
                 }
             }
@@ -93,13 +96,13 @@ namespace AgentProcessingv2
                 agents[i].workTime -= minT;
                 if (agents[i].workTime <= 0)
                 {
-                    agents[i].isBusy = false;
+                    agents[i].busy = false;
                 }
             }
             listBox1.Items.Clear();
             for (int i = 0; i < aV; i++)
             {
-                if (agents[i].isBusy)
+                if (agents[i].busy)
                 {
                     listBox1.Items.Add((i + 1) + " " + ("Busy") + " Time left: " + agents[i].workTime);
                 }
@@ -109,12 +112,17 @@ namespace AgentProcessingv2
                 }
             }
             double[] probs = new double[aV + 1];
-            var a = agents.Where(agent => agent.isBusy == true).Count();
-            frec[a]++;
+            int a = 0;
+            for (int i = 0; i < agents.Count(); i++)
+            {
+                if (agents[i].busy)
+                    a++;
+            }
+            freq[a]++;
             N++;
             for (int i = 0; i <= aV; i++)
             {
-                probs[i] = frec[i] / N;
+                probs[i] = freq[i] / N;
             }
             chart1.Series[1].Points.Clear();
             for (int i = 0; i < probs.Length; i++)

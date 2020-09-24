@@ -62,7 +62,7 @@
             this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Location = new System.Drawing.Point(13, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(775, 100);
+            this.panel1.Size = new System.Drawing.Size(573, 100);
             this.panel1.TabIndex = 0;
             // 
             // buttonStart
@@ -151,7 +151,7 @@
             series2.Name = "Реальность";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(403, 325);
+            this.chart1.Size = new System.Drawing.Size(573, 325);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
             // 
@@ -159,9 +159,9 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(423, 120);
+            this.listBox1.Location = new System.Drawing.Point(592, 8);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(365, 324);
+            this.listBox1.Size = new System.Drawing.Size(196, 436);
             this.listBox1.TabIndex = 2;
             // 
             // timer1

@@ -63,7 +63,7 @@ namespace AgentProcessingv2
                 if (!agents[i].busy)
                 {
                     agents[i].busy = true;
-                    agents[i].workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
+                    agents[i].busyTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
                 }
             }
             queue++;
@@ -71,9 +71,9 @@ namespace AgentProcessingv2
             int ind = -1;
             for (int i = 0; i < aV; i++)
             {
-                if (agents[i].workTime < minT)
+                if (agents[i].busyTime < minT)
                 {
-                    minT = agents[i].workTime;
+                    minT = agents[i].busyTime;
                     ind = i;
                 }
             }
@@ -87,14 +87,14 @@ namespace AgentProcessingv2
                 if (queue > 0)
                 {
                     agents[ind].busy = true;
-                    agents[ind].workTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
+                    agents[ind].busyTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
                     queue--;
                 }
             }
             for (int i = 0; i < aV; i++)
             {
-                agents[i].workTime -= minT;
-                if (agents[i].workTime <= 0)
+                agents[i].busyTime -= minT;
+                if (agents[i].busyTime <= 0)
                 {
                     agents[i].busy = false;
                 }
@@ -104,11 +104,11 @@ namespace AgentProcessingv2
             {
                 if (agents[i].busy)
                 {
-                    listBox1.Items.Add((i + 1) + " " + ("Busy") + " Time left: " + agents[i].workTime);
+                    listBox1.Items.Add((i + 1) + " " + ("Busy") + " Time left: " + agents[i].busyTime);
                 }
                 else
                 {
-                    listBox1.Items.Add((i + 1) + " " + ("Free") + " Time left: " + agents[i].workTime);
+                    listBox1.Items.Add((i + 1) + " " + ("Free") + " Time left: " + agents[i].busyTime);
                 }
             }
             double[] probs = new double[aV + 1];

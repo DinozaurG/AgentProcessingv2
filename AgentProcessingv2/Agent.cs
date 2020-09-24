@@ -8,7 +8,7 @@ namespace AgentProcessingv2
 {
     public class Agent
     {
-        public double workTime = 0;
+        public double busyTime = 0;
         public bool busy = false;
     }
 }

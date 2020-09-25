@@ -64,6 +64,7 @@ namespace AgentProcessingv2
                 {
                     agents[i].busy = true;
                     agents[i].busyTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
+                    return;
                 }
             }
             queue++;

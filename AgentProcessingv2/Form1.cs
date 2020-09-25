@@ -64,7 +64,7 @@ namespace AgentProcessingv2
                 {
                     agents[i].busy = true;
                     agents[i].busyTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
-                    getDataToScreen();
+                    sendDataToScreen();
                     return;
                 }
             }
@@ -101,9 +101,9 @@ namespace AgentProcessingv2
                     agents[i].busy = false;
                 }
             }
-            getDataToScreen();
+            sendDataToScreen();
         }
-        private void getDataToScreen() 
+        private void sendDataToScreen() 
         {
             listBox1.Items.Clear();
             for (int i = 0; i < aV; i++)

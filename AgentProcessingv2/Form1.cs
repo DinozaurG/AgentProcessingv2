@@ -58,12 +58,13 @@ namespace AgentProcessingv2
         private void timer1_Tick(object sender, EventArgs e)
         {
             nextCustomerTime += (int)(cD * Math.Exp(-cD * rnd.NextDouble()));
-            for(int i = 0; i < aV; i++)
+            for (int i = 0; i < aV; i++)
             {
                 if (!agents[i].busy)
                 {
                     agents[i].busy = true;
                     agents[i].busyTime = (int)(aD * Math.Exp(-aD * rnd.NextDouble()));
+                    getDataToScreen();
                     return;
                 }
             }
@@ -100,6 +101,10 @@ namespace AgentProcessingv2
                     agents[i].busy = false;
                 }
             }
+            getDataToScreen();
+        }
+        private void getDataToScreen() 
+        {
             listBox1.Items.Clear();
             for (int i = 0; i < aV; i++)
             {
